@@ -60,8 +60,8 @@ quarantined laptops.*
 
 ## Discussion
 
-Newly-created Glacier addresses must be imported into the full node as
-a watch-only address so that (1) the balance can be displayed; and (2)
+Every Glacier address must be imported into the full node as a
+watch-only address so that (1) the balance can be displayed; and (2)
 withdrawal transactions can be constructed in the future.
 
 If the address is new, we can assume no deposits have been made to
