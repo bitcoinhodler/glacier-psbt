@@ -137,12 +137,53 @@ and a total balance.
 
 *Use case: user wishes to withdraw bitcoins from cold storage.*
 
+## Command-line
+
+Spending the entire balance:
+```
+bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC walletcreatefundedpsbt \
+            '[]' \
+            '[{"2NCthaDAsJUJ2q5s1L4HhexUGMJ5t16vqer":0.17400000}]' \
+            0 \
+            '{"includeWatching":true, "subtractFeeFromOutputs":[0], "replaceable":true, "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"}' \
+            false
+bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+
+```
+
+Spending less than the entire balance:
+```
+bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC walletcreatefundedpsbt \
+            '[]' \
+            '[{"2NCthaDAsJUJ2q5s1L4HhexUGMJ5t16vqer":0.00400000}]' \
+            0 \
+            '{"includeWatching":true, "replaceable":true, "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"}' \
+            false
+bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+
+```
+
+
 ## Discussion
 
 In order to simplify both the scripting and the explanation of the
 process, we restrict the withdrawal UTXOs to a single Glacier address
 at a time. (There might still be multiple inputs, since Glacier reuses
 addresses.)
+
+To spend the entire balance, we include the balance in the output and
+use `subtractFeeFromOutputs` to allow Bitcoin Core to calculate the
+maximum amount after fees.
+
+Unfortunately `walletcreatefundedpsbt` does not seem to do dust
+detection; if fees are high and inputs are small, it could waste money
+by including uneconomical inputs. When attempting to spend the entire
+balance, the scripting should detect and avoid this. (Remove smallest
+input, see if output amount grows. Repeat until it doesn't, then back
+up one. Keep in mind, this might result in no inputs, if all are
+tiny.)
 
 # Process 4: Signing the PSBT using a quarantined laptop
 
