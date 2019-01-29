@@ -59,6 +59,29 @@ quarantined laptops.*
 
 *Use case: the user has inherited Bitcoins stored using Glacier.*
 
+## Command-line
+
+```
+### Create new wallet for cold storage address 2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC
+
+### Wallet creation
+bitcoin-cli -testnet createwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" true
+
+### Ugly: need to decodescript to get witness script, in case this is p2sh-segwit. Won't hurt in case it's legacy.
+### See https://bitcoin.stackexchange.com/questions/83102/how-to-import-p2wsh-in-p2sh-multisig-as-watch-only
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC decodescript "5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae"
+
+## Then take results["segwit"]["hex"] as a second redeemscript.
+
+## Address import: once per address. Script will need to calculate timestamp based on user-entered creation date.
+## I calculated this timestamp as 24 hours ago, since that's before I sent some coins to it
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC importmulti '[{ "scriptPubKey": { "address": "2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" }, "timestamp":1545413762, "redeemscript":"5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae", "watchonly":true }, { "scriptPubKey": { "address": "2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" }, "timestamp":1545413762, "redeemscript":"0020dabea3445c14e4a08d6705db4373bef467d4c64e7c8ddf149be50670de6878ae", "watchonly":true }]'
+
+bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+
+
+```
+
 ## Discussion
 
 Every Glacier address must be imported into the full node as a
@@ -88,12 +111,27 @@ Each Glacier address should be put into its own wallet so that:
 
 *Use case: obvious*
 
+## Command-line
+
+```
+### Caution: if already loaded, this bombs out
+bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+
+## Check balance
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC getbalance "*" 0 true
+bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+```
+
 ## Discussion
 
 Since each Glacier address is in its own wallet, it is not simple or
 obvious, via either GUI or CLI, how to view the balances.
 
 Since the addresses are watch-only, `getwalletinfo` shows 0.
+
+The script should ask the node for a list of wallets (using
+`listwallets`), filter Glacier-\*, and show balances for each of them,
+and a total balance.
 
 # Process 3: Constructing an unsigned PSBT using online node
 
@@ -145,6 +183,11 @@ node before broadcasting the transaction to the network.
 
 
 # Outstanding Issues and Questions
+
+* PSBTs can get large. It might require multiple QR codes to transmit
+  back and forth. The QR standard has a mechanism for this
+  ("structured QR codes") but it is not well-supported by the popular
+  QR apps, especially phone apps.
 
 # References
 
