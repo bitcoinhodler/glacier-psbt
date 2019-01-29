@@ -2,13 +2,14 @@
 
 ## What is this?
 
-This is an investigation into using Partially Signed Bitcoin
-Transactions
+This is an investigation and proposed enhancement to the [Glacier
+Protocol](https://glacierprotocol.org) (Bitcoin cold storage), to use
+Partially Signed Bitcoin Transactions
 [(PSBT)](https://github.com/bitcoin/bitcoin/blob/master/doc/psbt.md)
 from a [Bitcoin Core](https://bitcoincore.org/) [full
-node](https://bitcoin.org/en/full-node) for signing Bitcoin
-transactions for [Glacier](https://glacierprotocol.org) cold-storage
-addresses.
+node](https://bitcoin.org/en/full-node) instead of the current manual
+UTXO selection and fee calculations that rely on third-party online
+services.
 
 For more discussion, see [GlacierProtocol
 #54](https://github.com/GlacierProtocol/GlacierProtocol/issues/54).
