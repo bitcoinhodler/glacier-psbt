@@ -100,7 +100,10 @@ Since the addresses are watch-only, `getwalletinfo` shows 0.
 
 ## Discussion
 
-
+In order to simplify both the scripting and the explanation of the
+process, we restrict the withdrawal UTXOs to a single Glacier address
+at a time. (There might still be multiple inputs, since Glacier reuses
+addresses.)
 
 # Process 4: Signing the PSBT using a quarantined laptop
 
@@ -109,6 +112,24 @@ Since the addresses are watch-only, `getwalletinfo` shows 0.
 
 ## Discussion
 
+There are several safety and sanity checks that the offline scripting
+should perform before signing any withdrawal.
+
+1. Must have exactly one output whose value equals inputs plus fee; or
+must have exactly two outputs, one of which is the change back to
+same origin.
+
+2. All inputs must be from same address (so we can assume it's ours
+without having to ask user to type in cold storage address)
+
+3. Confirm cold storage address, destination, amount, and fee with
+user, before they type in privkeys.
+
+4. After walletprocesspsbt, ensure "complete":true (unless doing
+sequential signing)
+
+5. After getting the raw transaction, calculate the fee in sat/vbyte
+and display for user.
 
 
 # Process 5: Finalizing and transmitting the signed transaction using online node
@@ -118,8 +139,19 @@ Since the addresses are watch-only, `getwalletinfo` shows 0.
 
 ## Discussion
 
+One final sanity and safety check should be performed on the online
+node before broadcasting the transaction to the network.
 
 
 # Outstanding Issues and Questions
 
 # References
+
+* Official [PSBT docs](https://github.com/bitcoin/bitcoin/blob/master/doc/psbt.md)
+
+* My questions on Stack Exchange:
+  [PSBT](https://bitcoin.stackexchange.com/questions/83070/expected-use-model-for-psbt),
+  [importmulti](https://bitcoin.stackexchange.com/questions/83102/how-to-import-p2wsh-in-p2sh-multisig-as-watch-only),
+  [unloadwallet](https://bitcoin.stackexchange.com/questions/83121/confusion-about-unloadwallet),
+  and [loadwallet
+  rescans](https://bitcoin.stackexchange.com/questions/83236/how-can-i-tell-when-rescanblockchain-is-finished).
