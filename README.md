@@ -74,6 +74,14 @@ the date the address was created.
 Fortunately the Glacier instructions have always required the user to
 print the date on the cold storage information page.
 
+Each Glacier address should be put into its own wallet so that:
+
+* Withdrawal transactions can be restricted to using only those UTXOs,
+  simplifying the signing process.
+
+* Withdrawal transactions can be built from a wallet containing no
+  private keys, ensuring change addresses are entirely under our
+  control.
 
 # Process 2: Constructing an unsigned PSBT using online node
 
