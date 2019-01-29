@@ -51,18 +51,52 @@ Glacier system with this one.
 
 # Process 1: Importing Glacier address to online node
 
+*Use case: the user has constructed a new Glacier address using the
+quarantined laptops.*
+
 ## Discussion
+
+Newly-created Glacier addresses must be imported into the full node as
+a watch-only address so that (1) the balance can be displayed; and (2)
+withdrawal transactions can be constructed in the future.
+
+If the address is new, we can assume no deposits have been made to
+this address, and avoid a blockchain rescan. If the address is old
+(user has a new PC with a new Bitcoin Core installation for a
+years-old address; an heir is attempting to claim their deceased
+relative's Glacier coins) then a rescan is required, at least back to
+the date the address was created.
+
+Fortunately the Glacier instructions have always required the user to
+print the date on the cold storage information page.
+
 
 # Process 2: Constructing an unsigned PSBT using online node
 
+*Use case: user wishes to withdraw bitcoins from cold storage.*
+
 ## Discussion
+
+
 
 # Process 3: Signing the PSBT using a quarantined laptop
 
+*Use case: user has completed Process 2 and needs to sign the PSBT
+ using their paper keys.*
+
 ## Discussion
+
+
 
 # Process 4: Finalizing and transmitting the signed transaction using online node
 
+*Use case: user has completed Process 3 and needs to verify and
+ transmit the completely signed transaction.*
+
 ## Discussion
 
+
+
 # Outstanding Issues and Questions
+
+# References
