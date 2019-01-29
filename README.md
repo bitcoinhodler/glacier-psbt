@@ -83,7 +83,18 @@ Each Glacier address should be put into its own wallet so that:
   private keys, ensuring change addresses are entirely under our
   control.
 
-# Process 2: Constructing an unsigned PSBT using online node
+# Process 2: Display balances of all Glacier addresses
+
+*Use case: obvious*
+
+## Discussion
+
+Since each Glacier address is in its own wallet, it is not simple or
+obvious, via either GUI or CLI, how to view the balances.
+
+Since the addresses are watch-only, `getwalletinfo` shows 0.
+
+# Process 3: Constructing an unsigned PSBT using online node
 
 *Use case: user wishes to withdraw bitcoins from cold storage.*
 
@@ -91,18 +102,18 @@ Each Glacier address should be put into its own wallet so that:
 
 
 
-# Process 3: Signing the PSBT using a quarantined laptop
+# Process 4: Signing the PSBT using a quarantined laptop
 
-*Use case: user has completed Process 2 and needs to sign the PSBT
+*Use case: user has completed Process 3 and needs to sign the PSBT
  using their paper keys.*
 
 ## Discussion
 
 
 
-# Process 4: Finalizing and transmitting the signed transaction using online node
+# Process 5: Finalizing and transmitting the signed transaction using online node
 
-*Use case: user has completed Process 3 and needs to verify and
+*Use case: user has completed Process 4 and needs to verify and
  transmit the completely signed transaction.*
 
 ## Discussion
