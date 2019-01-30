@@ -144,7 +144,7 @@ Spending the entire balance:
 bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
 bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC walletcreatefundedpsbt \
             '[]' \
-            '[{"2NCthaDAsJUJ2q5s1L4HhexUGMJ5t16vqer":0.17400000}]' \
+            '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.17400000}]' \
             0 \
             '{"includeWatching":true, "subtractFeeFromOutputs":[0], "replaceable":true, "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"}' \
             false
@@ -157,7 +157,7 @@ Spending less than the entire balance:
 bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
 bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC walletcreatefundedpsbt \
             '[]' \
-            '[{"2NCthaDAsJUJ2q5s1L4HhexUGMJ5t16vqer":0.00400000}]' \
+            '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.00400000}]' \
             0 \
             '{"includeWatching":true, "replaceable":true, "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"}' \
             false
