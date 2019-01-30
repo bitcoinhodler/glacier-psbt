@@ -284,6 +284,43 @@ bitcoin-cli -testnet sendrawtransaction \
 One final sanity and safety check should be performed on the online
 node before broadcasting the transaction to the network.
 
+Scripting this portion has serious security issues; see discussion
+below. Perhaps this portion should be done on an entirely different
+computer that has never run any Glacier code. (Still using coinb.in?)
+
+# Security Analysis
+
+The PSBT (BIP174) flow was designed to be secure provided the offline
+node is secure. This includes any scripting provided by Glacier.
+
+Unfortunately this flow, as envisioned, is less secure than today's
+Glacier, due to the requirement to run GlacierScript code on both the
+online and the offline computers. If Glacier itself were compromised,
+the two scripts could coordinate to exfiltrate keys and steal
+funds. Today's Glacier uses only public web services on the online
+node, requiring an attacker to compromise both GlacierScript and those
+online services at the same time.
+
+For example, if process 5 were scripted and GlacierScript itself was
+compromised, an attacker could use such scripting to exfiltrate
+private keys (by hiding them inside the base64-encoded PSBT data). By
+making process 5 steps manual, we prevent that attack vector.
+
+But GlacierScript code has already run previously on the online node
+-- if GlacierScript itself was compromised, anything is possible. It
+might have installed malware that intercepts the copy/pasted PSBT,
+extracting the privkeys before placing the legitimate PSBT in the
+clipboard.
+
+One workaround is to use an entirely different online computer for
+decoding and transmitting the raw transaction, which probably means
+using coinb.in (instead of having the user install a second copy of
+Bitcoin Core with a second copy of the blockchain). This would also
+complicate sequential signing.
+
+Another option would be to accept and understand that a compromised
+Glacier would lead to loss of funds -- but this is a serious step down
+from today's Glacier security.
 
 # Outstanding Issues and Questions
 
