@@ -326,7 +326,7 @@ from today's Glacier security.
 
 * PSBTs can get large. It might require multiple QR codes to transmit
   back and forth. The QR standard has a mechanism for this
-  ("structured QR codes") but it is not well-supported by the popular
+  ("structured append") but it is not well-supported by the popular
   QR apps, especially phone apps.
 
 # References
