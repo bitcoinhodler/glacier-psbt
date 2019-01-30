@@ -59,7 +59,7 @@ quarantined laptops.*
 
 *Use case: the user has inherited Bitcoins stored using Glacier.*
 
-## Command-line
+## Command line
 
 ```
 ### Create new wallet for cold storage address 2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC
@@ -126,7 +126,7 @@ Each Glacier address should be put into its own wallet so that:
 
 *Use case: obvious*
 
-## Command-line
+## Command line
 
 ```
 ### Caution: if already loaded, this bombs out
@@ -152,7 +152,7 @@ and a total balance.
 
 *Use case: user wishes to withdraw bitcoins from cold storage.*
 
-## Command-line
+## Command line
 
 Spending the entire balance:
 ```
