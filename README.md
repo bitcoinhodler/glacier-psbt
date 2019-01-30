@@ -40,6 +40,8 @@ Glacier system with this one.
 * **Auditable**: use standard mechanisms and interfaces so that
     advanced users can see that nothing fishy is going on.
 
+* **Secure**: no downgrade in security versus today's Glacier.
+
 # Assumptions
 
 *These should be relaxed over time as this process is further developed.*
