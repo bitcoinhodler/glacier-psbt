@@ -212,6 +212,25 @@ tiny.)
 *Use case: user has completed Process 3 and needs to sign the PSBT
  using their paper keys.*
 
+## Command-line
+
+```
+### Remember, this is on quarantined laptop, running bitcoind like so:
+bitcoind -testnet -daemon -connect=0.0.0.0
+
+### First show us what we have here:
+bitcoin-cli -testnet decodepsbt "cHNidP8BAFMCAAAAASX9+/r5FLgd8fsd2thLtfeNA0Ou4+bIcigceMcydMqXAAAAAAD9////AQGACQEAAAAAF6kUDI4nEy+SWSrEWcce4KKL6im4O9WHAAAAAAABASDAgAkBAAAAABepFFNO484huPgFEo92udl341G7vqINhwEEIgAg2r6jRFwU5KCNZwXbQ3O+9GfUxk58jd8Um+UGcN5oeK4BBYtSIQKfUxUD+s2sJJb1CkRtm9KYRqBqBKReOEW2VrtHHfQi/CEC4weHcDqZDkAVosuQcfz9HH1GQfspTktMP19rRQoZJRMhAtooCIqAImURccTxNCm5hwnavhO8baUmU3/dLQcw3S27IQMobJbsqoUKa6Q8xF+7U5wfsdZcI8wPPNCfz5dlgm/53lSuAAA="
+
+### User has confirmed details and entered privkeys
+bitcoin-cli -testnet importprivkey cVb7UNXC7nXzBLEtQZMzJcoRYNsiGCTjgAiibJqtEpLM1gimrhW2
+bitcoin-cli -testnet importprivkey cUxC3su6U61NsGspvcsD7JxSDUiRY7YaybTHGDgF5e8T5tpk7UD1
+
+### Sign:
+bitcoin-cli -testnet walletprocesspsbt "cHNidP8BAFMCAAAAASX9+/r5FLgd8fsd2thLtfeNA0Ou4+bIcigceMcydMqXAAAAAAD9////AQGACQEAAAAAF6kUDI4nEy+SWSrEWcce4KKL6im4O9WHAAAAAAABASDAgAkBAAAAABepFFNO484huPgFEo92udl341G7vqINhwEEIgAg2r6jRFwU5KCNZwXbQ3O+9GfUxk58jd8Um+UGcN5oeK4BBYtSIQKfUxUD+s2sJJb1CkRtm9KYRqBqBKReOEW2VrtHHfQi/CEC4weHcDqZDkAVosuQcfz9HH1GQfspTktMP19rRQoZJRMhAtooCIqAImURccTxNCm5hwnavhO8baUmU3/dLQcw3S27IQMobJbsqoUKa6Q8xF+7U5wfsdZcI8wPPNCfz5dlgm/53lSuAAA="
+
+bitcoin-cli -testnet stop
+```
+
 ## Discussion
 
 There are several safety and sanity checks that the offline scripting
