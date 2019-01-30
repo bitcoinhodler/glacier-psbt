@@ -69,13 +69,28 @@ bitcoin-cli -testnet createwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" 
 
 ### Ugly: need to decodescript to get witness script, in case this is p2sh-segwit. Won't hurt in case it's legacy.
 ### See https://bitcoin.stackexchange.com/questions/83102/how-to-import-p2wsh-in-p2sh-multisig-as-watch-only
-bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC decodescript "5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae"
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC decodescript \
+    "5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae"
 
 ## Then take results["segwit"]["hex"] as a second redeemscript.
 
 ## Address import: once per address. Script will need to calculate timestamp based on user-entered creation date.
 ## I calculated this timestamp as 24 hours ago, since that's before I sent some coins to it
-bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC importmulti '[{ "scriptPubKey": { "address": "2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" }, "timestamp":1545413762, "redeemscript":"5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae", "watchonly":true }, { "scriptPubKey": { "address": "2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" }, "timestamp":1545413762, "redeemscript":"0020dabea3445c14e4a08d6705db4373bef467d4c64e7c8ddf149be50670de6878ae", "watchonly":true }]'
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC importmulti \
+    '[
+      {
+        "scriptPubKey": { "address": "2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" },
+        "timestamp":1545413762,
+        "redeemscript":"5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae",
+        "watchonly":true
+      },
+      {
+        "scriptPubKey": { "address": "2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" },
+        "timestamp":1545413762,
+        "redeemscript":"0020dabea3445c14e4a08d6705db4373bef467d4c64e7c8ddf149be50670de6878ae",
+        "watchonly":true
+      }
+    ]'
 
 bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
 
@@ -143,26 +158,33 @@ Spending the entire balance:
 ```
 bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
 bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC walletcreatefundedpsbt \
-            '[]' \
-            '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.17400000}]' \
-            0 \
-            '{"includeWatching":true, "subtractFeeFromOutputs":[0], "replaceable":true, "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"}' \
-            false
+    '[]' \
+    '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.17400000}]' \
+    0 \
+    '{
+        "includeWatching":true,
+        "subtractFeeFromOutputs":[0],
+        "replaceable":true,
+        "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+     }' \
+     false
 bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
-
 ```
 
 Spending less than the entire balance:
 ```
 bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
 bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC walletcreatefundedpsbt \
-            '[]' \
-            '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.00400000}]' \
-            0 \
-            '{"includeWatching":true, "replaceable":true, "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"}' \
-            false
+    '[]' \
+    '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.00400000}]' \
+    0 \
+    '{
+        "includeWatching":true,
+        "replaceable":true,
+        "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
+    }' \
+    false
 bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
-
 ```
 
 
