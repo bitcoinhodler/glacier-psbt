@@ -209,6 +209,15 @@ input, see if output amount grows. Repeat until it doesn't, then back
 up one. Keep in mind, this might result in no inputs, if all are
 tiny.)
 
+The outcome of this process is a base64-encoded PSBT like so:
+
+```
+cHNidP8BAFMCAAAAASX9+/r5FLgd8fsd2thLtfeNA0Ou4+bIcigceMcydMqXAAAAAAD9////AQGACQEAAAAAF6kUDI4nEy+SWSrEWcce4KKL6im4O9WHAAAAAAABASDAgAkBAAAAABepFFNO484huPgFEo92udl341G7vqINhwEEIgAg2r6jRFwU5KCNZwXbQ3O+9GfUxk58jd8Um+UGcN5oeK4BBYtSIQKfUxUD+s2sJJb1CkRtm9KYRqBqBKReOEW2VrtHHfQi/CEC4weHcDqZDkAVosuQcfz9HH1GQfspTktMP19rRQoZJRMhAtooCIqAImURccTxNCm5hwnavhO8baUmU3/dLQcw3S27IQMobJbsqoUKa6Q8xF+7U5wfsdZcI8wPPNCfz5dlgm/53lSuAAA="
+```
+
+Transfer this PSBT to the quarantined node by printing it as a QR
+code.
+
 # Process 4: Signing the PSBT using a quarantined laptop
 
 *Use case: user has completed Process 3 and needs to sign the PSBT
@@ -254,6 +263,19 @@ sequential signing)
 5. After getting the raw transaction, calculate the fee in sat/vbyte
 and display for user.
 
+The outcode of this process is a signed PSBT like so:
+
+```
+cHNidP8BAFMCAAAAASX9+/r5FLgd8fsd2thLtfeNA0Ou4+bIcigceMcydMqXAAAAAAD9////AQGACQEAAAAAF6kUDI4nEy+SWSrEWcce4KKL6im4O9WHAAAAAAABASDAgAkBAAAAABepFFNO484huPgFEo92udl341G7vqINhwEHIyIAINq+o0RcFOSgjWcF20NzvvRn1MZOfI3fFJvlBnDeaHiuAQj9HgEEAEcwRAIgVhc8bBMY3Rfn6AKiW+srBcBNKSjhfTbNyZbi+WJH+44CIAM44QgBeZPutarNopHVa8t72NkQomzuN74Q3w5O314iAUcwRAIgO2ydHblxgMA0Pvc14M00qsYXM05X4Ra8dNDXwZiNLmICIDv0HSikT95699H7ftkJP5n3VmnlNMatBPqruGmKh+HrAYtSIQKfUxUD+s2sJJb1CkRtm9KYRqBqBKReOEW2VrtHHfQi/CEC4weHcDqZDkAVosuQcfz9HH1GQfspTktMP19rRQoZJRMhAtooCIqAImURccTxNCm5hwnavhO8baUmU3/dLQcw3S27IQMobJbsqoUKa6Q8xF+7U5wfsdZcI8wPPNCfz5dlgm/53lSuAAA=
+```
+
+Transfer this PSBT back to the online node by displaying it as a QR
+code and scanning it with a phone.
+
+It would also be possible to run the `finalizepsbt` step here on the
+quarantined laptop, then transmit only the raw transaction. This would
+reduce the amount of data transferred, but would also preclude (or at
+least complicate) a future sequential signing enhancement.
 
 # Process 5: Finalizing and transmitting the signed transaction using online node
 
