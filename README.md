@@ -263,7 +263,7 @@ sequential signing)
 5. After getting the raw transaction, calculate the fee in sat/vbyte
 and display for user.
 
-The outcode of this process is a signed PSBT like so:
+The outcome of this process is a signed PSBT like so:
 
 ```
 cHNidP8BAFMCAAAAASX9+/r5FLgd8fsd2thLtfeNA0Ou4+bIcigceMcydMqXAAAAAAD9////AQGACQEAAAAAF6kUDI4nEy+SWSrEWcce4KKL6im4O9WHAAAAAAABASDAgAkBAAAAABepFFNO484huPgFEo92udl341G7vqINhwEHIyIAINq+o0RcFOSgjWcF20NzvvRn1MZOfI3fFJvlBnDeaHiuAQj9HgEEAEcwRAIgVhc8bBMY3Rfn6AKiW+srBcBNKSjhfTbNyZbi+WJH+44CIAM44QgBeZPutarNopHVa8t72NkQomzuN74Q3w5O314iAUcwRAIgO2ydHblxgMA0Pvc14M00qsYXM05X4Ra8dNDXwZiNLmICIDv0HSikT95699H7ftkJP5n3VmnlNMatBPqruGmKh+HrAYtSIQKfUxUD+s2sJJb1CkRtm9KYRqBqBKReOEW2VrtHHfQi/CEC4weHcDqZDkAVosuQcfz9HH1GQfspTktMP19rRQoZJRMhAtooCIqAImURccTxNCm5hwnavhO8baUmU3/dLQcw3S27IQMobJbsqoUKa6Q8xF+7U5wfsdZcI8wPPNCfz5dlgm/53lSuAAA=
