@@ -71,6 +71,7 @@ bitcoin-cli -testnet createwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" 
 
 ### Ugly: need to decodescript to get witness script, in case this is p2sh-segwit. Won't hurt in case it's legacy.
 ### See https://bitcoin.stackexchange.com/questions/83102/how-to-import-p2wsh-in-p2sh-multisig-as-watch-only
+### This could be simplified once [bitcoin#14491](https://github.com/bitcoin/bitcoin/pull/14491) and/or [bitcoin#14454](https://github.com/bitcoin/bitcoin/pull/14454) get released
 bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC decodescript \
     "5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae"
 
@@ -78,6 +79,9 @@ bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC deco
 
 ## Address import: once per address. Script will need to calculate timestamp based on user-entered creation date.
 ## I calculated this timestamp as 24 hours ago, since that's before I sent some coins to it
+## After [bitcoin#14454](https://github.com/bitcoin/bitcoin/pull/14454) is released, this can/will change.
+## We will need to distinguish p2sh from p2wsh-in-p2sh and do different things here,
+## using the new "witnessscript" field.
 bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC importmulti \
     '[
       {
