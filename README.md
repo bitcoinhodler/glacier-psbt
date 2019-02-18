@@ -57,6 +57,9 @@ Glacier system with this one.
 *Use case: the user has constructed a new Glacier address using the
 quarantined laptops.*
 
+*Use case: the user is attempting to withdraw coins stored using an
+old version of Glacier.*
+
 *Use case: the user has a new PC and new Bitcoin Core installation.*
 
 *Use case: the user has inherited Bitcoins stored using Glacier.*
