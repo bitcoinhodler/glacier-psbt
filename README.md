@@ -131,6 +131,11 @@ Each Glacier address should be put into its own wallet so that:
   private keys, ensuring change addresses are entirely under our
   control.
 
+The scripting should first check if this installation of Bitcoin Core
+already contains the specified address. The user may have created this
+cold-storage address years earlier and can't remember if they ever
+imported it.
+
 # Process 2: Display balances of all Glacier addresses
 
 *Use case: obvious*
