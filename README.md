@@ -159,7 +159,7 @@ obvious, via either GUI or CLI, how to view the balances.
 Since the addresses are watch-only, `getwalletinfo` shows 0.
 
 The script should ask the node for a list of wallets (using
-`listwallets`), filter Glacier-\*, and show balances for each of them,
+`listwalletdir`), filter Glacier-\*, and show balances for each of them,
 and a total balance.
 
 # Process 3: Constructing an unsigned PSBT using online node
