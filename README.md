@@ -81,7 +81,7 @@ bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC deco
 ## then this is not segwit and the provided redeem_script is all you
 ## need. In this case it is not equal; instead the source address
 ## matches results["segwit"]["p2sh-segwit"] which means it's a segwit
-## address. So we take the provided reseem_script as the
+## address. So we take the provided redeem_script as the
 ## witnessscript, and the results["segwit"]["hex"] as the
 ## redeemscript.
 
