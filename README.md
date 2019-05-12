@@ -46,7 +46,7 @@ Glacier system with this one.
 
 *These should be relaxed over time as this process is further developed.*
 
-* The user has a Bitcoin Core v0.18.0rc1 full node with a complete
+* The user has a Bitcoin Core v0.18.0 full node with a complete
   (testnet) blockchain.
 
 * The user is familiar with using
