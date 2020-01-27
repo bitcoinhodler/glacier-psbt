@@ -46,7 +46,7 @@ Glacier system with this one.
 
 *These should be relaxed over time as this process is further developed.*
 
-* The user has a Bitcoin Core v0.18.0 full node with a complete
+* The user has a Bitcoin Core v0.19.0.1 full node with a complete
   (testnet) blockchain.
 
 * The user is familiar with using
@@ -157,7 +157,7 @@ imported it.
 bitcoin-cli -testnet loadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
 
 ## Check balance
-bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC getbalance "*" 0 true
+bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC getbalance
 bitcoin-cli -testnet unloadwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
 ```
 
@@ -186,7 +186,6 @@ bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC wall
     '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.17400000}]' \
     0 \
     '{
-        "includeWatching":true,
         "subtractFeeFromOutputs":[0],
         "replaceable":true,
         "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
@@ -203,7 +202,6 @@ bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC wall
     '[{"2MtPcPXMrGxhprqSyLU8zDsbuMyESxdPpb2":0.00400000}]' \
     0 \
     '{
-        "includeWatching":true,
         "replaceable":true,
         "changeAddress":"2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC"
     }' \
