@@ -30,8 +30,8 @@ Glacier system with this one.
 # Goals and Principles
 
 * **Simple**: the non-technical target user of Glacier should be able
-    to follow this process when it is completed. Until then, it might
-    be highly technical.
+    to follow this process. (When it is completed; until then, it might
+    be highly technical.)
 
 * **Robust**: users should have few opportunities to screw up, and
     practically zero chance of losing funds, when following this
