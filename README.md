@@ -72,18 +72,31 @@ old version of Glacier.*
 ### Wallet creation
 bitcoin-cli -testnet createwallet "Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC" true
 
-### If address is segwit, the redeem_script provided by the user is actually the witnessscript,
-### and we must run decodescript to find the redeemscript.
+### There are three types of addresses historically created by Glacier:
+### * p2sh (original)
+### * p2wsh-in-p2sh (since v0.93)
+### * p2wsh (Pull Request #76)
+
+### With the address and redeem script, we can run `decodescript` and
+### determine which address type this wallet uses.
+
 bitcoin-cli -testnet -rpcwallet=Glacier-2MzqiaZzpLT2SSBfsFqqo3FpZsP8g6WTvyC decodescript \
     "5221029f531503facdac2496f50a446d9bd29846a06a04a45e3845b656bb471df422fc2102e30787703a990e4015a2cb9071fcfd1c7d4641fb294e4b4c3f5f6b450a1925132102da28088a8022651171c4f13429b98709dabe13bc6da526537fdd2d0730dd2dbb2103286c96ecaa850a6ba43cc45fbb539c1fb1d65c23cc0f3cd09fcf9765826ff9de54ae"
 
 ## Then look at results["p2sh"] -- if it equals the source address,
-## then this is not segwit and the provided redeem_script is all you
-## need. In this case it is not equal; instead the source address
-## matches results["segwit"]["p2sh-segwit"] which means it's a segwit
-## address. So we take the provided redeem_script as the
+## then this is p2sh and the provided redeem script should go in the
+## "redeemscript" field in the `importmulti`. In this case it is not
+## equal; instead the source address matches
+## results["segwit"]["p2sh-segwit"] which means it's a p2wsh-in-p2sh
+## address. So we take the provided redeem script as the
 ## witnessscript, and the results["segwit"]["hex"] as the
-## redeemscript.
+## redeemscript. The third type (p2wsh) has an address matching
+## results["segwit"]["addresses"] (which is a list but always seems to
+## have only one entry). For that, you provide the user-supplied
+## redeem script in the "witnessscript" field, and no "redeemscript".
+
+## Note: method `_teach_address_to_wallet` in my latest
+## GlacierProtocol branch implements this algorithm.
 
 ## Address import: once per address. Script will need to calculate timestamp based on user-entered creation date.
 ## I calculated this timestamp as 24 hours ago, since that's before I sent some coins to it
