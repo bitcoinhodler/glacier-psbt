@@ -267,20 +267,16 @@ bitcoin-cli -testnet stop
 There are several safety and sanity checks that the offline scripting
 should perform before signing any withdrawal.
 
-1. Must have exactly one output whose value equals inputs plus fee; or
-must have exactly two outputs, one of which is the change back to
-same origin.
-
-2. All inputs must be from same address (so we can assume it's ours
+1. All inputs must be from same address (so we can assume it's ours
 without having to ask user to type in cold storage address)
 
-3. Confirm cold storage address, destination, amount, and fee with
-user, before they type in privkeys.
+2. Confirm cold storage address, destination(s), amount(s), and fee
+with user, before they type in privkeys.
 
-4. After walletprocesspsbt, ensure "complete":true (unless doing
+3. After walletprocesspsbt, ensure "complete":true (unless doing
 sequential signing)
 
-5. After getting the raw transaction, calculate the fee in sat/vbyte
+4. After getting the raw transaction, calculate the fee in sat/vbyte
 and display for user.
 
 The outcome of this process is a signed PSBT like so:
